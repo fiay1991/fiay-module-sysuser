@@ -87,12 +87,7 @@ public class SysuserController {
         if (sysuser != null) {
             apiResult.setCode(200);
             apiResult.setMessage("welcome " + sysuser.getSuNickname());
-            VOSysuser vo = new VOSysuser();
-            vo.setUsername(sysuser.getSuUsername());
-            vo.setNickname(sysuser.getSuNickname());
-            vo.setLastLoginIp(sysuser.getSuLastLoginIp());
-            vo.setLastLoginTime(sysuser.getSuLastLoginTime());
-            apiResult.setData(vo);
+            apiResult.setData(VOSysuser.VOAction.buildLoginVO(sysuser));
         } else {
             apiResult.setCode(404);
             apiResult.setMessage("user not found");
@@ -101,5 +96,6 @@ public class SysuserController {
 
         return apiResult;
     }
+
 
 }

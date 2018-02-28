@@ -1,5 +1,7 @@
 package com.fiay.microserv.sysuser.viewobject;
 
+import com.fiay.microserv.sysuser.model.Sysuser;
+
 import java.util.Date;
 
 /**
@@ -60,5 +62,21 @@ public class VOSysuser {
     }
 
     public VOSysuser() {
+    }
+
+    public static class VOAction {
+        /**
+         * 根据sysuser登录结果返回vo对象
+         * @param sysuser
+         * @return
+         */
+        public static VOSysuser buildLoginVO(Sysuser sysuser) {
+            VOSysuser vo = new VOSysuser();
+            vo.setUsername(sysuser.getSuUsername());
+            vo.setNickname(sysuser.getSuNickname());
+            vo.setLastLoginIp(sysuser.getSuLastLoginIp());
+            vo.setLastLoginTime(sysuser.getSuLastLoginTime());
+            return vo;
+        }
     }
 }
