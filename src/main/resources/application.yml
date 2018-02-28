@@ -1,0 +1,48 @@
+# Spring Boot 服务器端口和基础路径配置
+server:
+  port: 8081
+  context-path: /sysuser
+# MyBatis 相关配置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.fiay.microserv.sysuser.model
+# ApiInfo API信息，用于测试服务是否开启
+apiInfo:
+  name: fiay-module-sysuser-api
+  version: 1
+  author: fiay
+  email: pl.fiay@gmail.com
+  deploy: 127.0.0.1
+  port: 8081
+  description: deploy fiay-module-sysuser-api machine 01
+# Spring 相关配置
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url:  jdbc:mysql://localhost:3306/db_fiaysys_base?useSSL=false&useUnicode=true&characterEncoding=utf-8
+    username: fiay
+    password: fiay
+    driverClassName:  com.mysql.jdbc.Driver
+    # 以下为Druid在SpringBoot中自定义配置实现
+    # 参见com.fiay.microserv.sysuser.util.druid.DruidDBConfig
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,wall,log4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+
+
+
+
+
+
+

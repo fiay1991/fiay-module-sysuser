@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fiay.microserv.sysuser.dao.SysuserDao">
+  <resultMap id="BaseResultMap" type="com.fiay.microserv.sysuser.model.Sysuser">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="su_username" jdbcType="VARCHAR" property="suUsername" />
+    <result column="su_password" jdbcType="VARCHAR" property="suPassword" />
+    <result column="su_password_salt" jdbcType="VARCHAR" property="suPasswordSalt" />
+    <result column="su_nickname" jdbcType="VARCHAR" property="suNickname" />
+    <result column="su_from" jdbcType="INTEGER" property="suFrom" />
+    <result column="su_last_login_ip" jdbcType="VARCHAR" property="suLastLoginIp" />
+    <result column="su_last_login_time" jdbcType="TIMESTAMP" property="suLastLoginTime" />
+    <result column="su_status" jdbcType="INTEGER" property="suStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, su_username, su_password, su_password_salt, su_nickname, su_from, su_last_login_ip, 
+    su_last_login_time, su_status
+  </sql>
+  <select id="selectByExample" parameterType="com.fiay.microserv.sysuser.model.SysuserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_sysuser
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_sysuser
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_sysuser
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fiay.microserv.sysuser.model.SysuserExample">
+    delete from tb_sysuser
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fiay.microserv.sysuser.model.Sysuser">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_sysuser (su_username, su_password, su_password_salt, 
+      su_nickname, su_from, su_last_login_ip, 
+      su_last_login_time, su_status)
+    values (#{suUsername,jdbcType=VARCHAR}, #{suPassword,jdbcType=VARCHAR}, #{suPasswordSalt,jdbcType=VARCHAR}, 
+      #{suNickname,jdbcType=VARCHAR}, #{suFrom,jdbcType=INTEGER}, #{suLastLoginIp,jdbcType=VARCHAR}, 
+      #{suLastLoginTime,jdbcType=TIMESTAMP}, #{suStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fiay.microserv.sysuser.model.Sysuser">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_sysuser
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="suUsername != null">
+        su_username,
+      </if>
+      <if test="suPassword != null">
+        su_password,
+      </if>
+      <if test="suPasswordSalt != null">
+        su_password_salt,
+      </if>
+      <if test="suNickname != null">
+        su_nickname,
+      </if>
+      <if test="suFrom != null">
+        su_from,
+      </if>
+      <if test="suLastLoginIp != null">
+        su_last_login_ip,
+      </if>
+      <if test="suLastLoginTime != null">
+        su_last_login_time,
+      </if>
+      <if test="suStatus != null">
+        su_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="suUsername != null">
+        #{suUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="suPassword != null">
+        #{suPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="suPasswordSalt != null">
+        #{suPasswordSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="suNickname != null">
+        #{suNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="suFrom != null">
+        #{suFrom,jdbcType=INTEGER},
+      </if>
+      <if test="suLastLoginIp != null">
+        #{suLastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="suLastLoginTime != null">
+        #{suLastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="suStatus != null">
+        #{suStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fiay.microserv.sysuser.model.SysuserExample" resultType="java.lang.Long">
+    select count(*) from tb_sysuser
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_sysuser
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.suUsername != null">
+        su_username = #{record.suUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.suPassword != null">
+        su_password = #{record.suPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.suPasswordSalt != null">
+        su_password_salt = #{record.suPasswordSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.suNickname != null">
+        su_nickname = #{record.suNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.suFrom != null">
+        su_from = #{record.suFrom,jdbcType=INTEGER},
+      </if>
+      <if test="record.suLastLoginIp != null">
+        su_last_login_ip = #{record.suLastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.suLastLoginTime != null">
+        su_last_login_time = #{record.suLastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.suStatus != null">
+        su_status = #{record.suStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_sysuser
+    set id = #{record.id,jdbcType=BIGINT},
+      su_username = #{record.suUsername,jdbcType=VARCHAR},
+      su_password = #{record.suPassword,jdbcType=VARCHAR},
+      su_password_salt = #{record.suPasswordSalt,jdbcType=VARCHAR},
+      su_nickname = #{record.suNickname,jdbcType=VARCHAR},
+      su_from = #{record.suFrom,jdbcType=INTEGER},
+      su_last_login_ip = #{record.suLastLoginIp,jdbcType=VARCHAR},
+      su_last_login_time = #{record.suLastLoginTime,jdbcType=TIMESTAMP},
+      su_status = #{record.suStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fiay.microserv.sysuser.model.Sysuser">
+    update tb_sysuser
+    <set>
+      <if test="suUsername != null">
+        su_username = #{suUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="suPassword != null">
+        su_password = #{suPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="suPasswordSalt != null">
+        su_password_salt = #{suPasswordSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="suNickname != null">
+        su_nickname = #{suNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="suFrom != null">
+        su_from = #{suFrom,jdbcType=INTEGER},
+      </if>
+      <if test="suLastLoginIp != null">
+        su_last_login_ip = #{suLastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="suLastLoginTime != null">
+        su_last_login_time = #{suLastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="suStatus != null">
+        su_status = #{suStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fiay.microserv.sysuser.model.Sysuser">
+    update tb_sysuser
+    set su_username = #{suUsername,jdbcType=VARCHAR},
+      su_password = #{suPassword,jdbcType=VARCHAR},
+      su_password_salt = #{suPasswordSalt,jdbcType=VARCHAR},
+      su_nickname = #{suNickname,jdbcType=VARCHAR},
+      su_from = #{suFrom,jdbcType=INTEGER},
+      su_last_login_ip = #{suLastLoginIp,jdbcType=VARCHAR},
+      su_last_login_time = #{suLastLoginTime,jdbcType=TIMESTAMP},
+      su_status = #{suStatus,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
