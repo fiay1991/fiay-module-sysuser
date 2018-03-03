@@ -17,6 +17,9 @@ apiInfo:
   description: deploy fiay-module-sysuser-api machine 01
 # Spring 相关配置
 spring:
+  aop:
+    auto: true
+    proxy-target-class: true
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     url:  jdbc:mysql://localhost:3306/db_fiaysys_base?useSSL=false&useUnicode=true&characterEncoding=utf-8

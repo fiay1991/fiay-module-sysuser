@@ -73,9 +73,9 @@ public class DruidDBConfig {
     @Value("${spring.datasource.connectionProperties}")
     private String connectionProperties;
 
-    @Bean     //声明其为Bean实例
-    @Primary  //在同样的DataSource中，首先使用被标注的DataSource
-    public DataSource dataSource(){
+    @Bean     // 声明其为Bean实例
+    @Primary  // 在同样的DataSource中，首先使用被标注的DataSource
+    public DataSource dataSource() {
         DruidDataSource datasource = new DruidDataSource();
 
         datasource.setUrl(this.dbUrl);
@@ -83,7 +83,7 @@ public class DruidDBConfig {
         datasource.setPassword(password);
         datasource.setDriverClassName(driverClassName);
 
-        //configuration
+        // 配置Druid数据源设置
         datasource.setInitialSize(initialSize);
         datasource.setMinIdle(minIdle);
         datasource.setMaxActive(maxActive);

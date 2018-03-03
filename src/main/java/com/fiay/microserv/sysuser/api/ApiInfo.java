@@ -1,4 +1,4 @@
-package com.fiay.microserv.sysuser.util.api;
+package com.fiay.microserv.sysuser.api;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

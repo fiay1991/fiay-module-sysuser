@@ -23,6 +23,8 @@ public interface SysuserDao {
 
     List<Sysuser> selectByExample(SysuserExample example);
 
+    List<Sysuser> loginByExample(SysuserExample example);
+
     Sysuser selectByPrimaryKey(Long id);
 
     int updateByExampleSelective(@Param("record") Sysuser record, @Param("example") SysuserExample example);

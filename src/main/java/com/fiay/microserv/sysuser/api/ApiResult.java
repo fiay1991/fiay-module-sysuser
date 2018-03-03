@@ -1,4 +1,4 @@
-package com.fiay.microserv.sysuser.util.api;
+package com.fiay.microserv.sysuser.api;
 
 /**
  * API通用返回格式
@@ -6,9 +6,23 @@ package com.fiay.microserv.sysuser.util.api;
  */
 public class ApiResult {
 
+    public ApiResult(Integer code, String message, Object data, Integer size) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+        this.size = size;
+    }
+
     private Integer code;
     private String message;
     private Object data;
+    private Integer size;
+
+    public ApiResult(Integer code, String message, Object data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+    }
 
     public ApiResult() {
     }
@@ -35,5 +49,13 @@ public class ApiResult {
 
     public void setData(Object data) {
         this.data = data;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
     }
 }

@@ -22,13 +22,14 @@ public class SysuserService {
 
     /**
      * 添加新用户
+     *
      * @param suUsername 用户名
      * @param suPassword 密码明文
      * @param suNickname 昵称
      * @return
      */
     @Transactional
-    public Integer addSU(String suUsername,String suPassword,String suNickname) {
+    public Integer addSU(String suUsername, String suPassword, String suNickname) {
         Sysuser sysuser = new Sysuser();
         sysuser.setSuUsername(suUsername);
         sysuser.setSuPassword(suPassword);
@@ -43,51 +44,72 @@ public class SysuserService {
 
     /**
      * 修改用户密码
+     *
      * @param username
      * @param oldPassword
      * @param newPassword
      * @return
      */
-    public Integer editSUPassword(String username,String oldPassword,String newPassword){
+    public Integer editSUPassword(String username, String oldPassword, String newPassword) {
         SysuserExample example = new SysuserExample();
         SysuserExample.Criteria criteria = example.createCriteria();
         criteria.andSuUsernameEqualTo(username);
         criteria.andSuPasswordEqualTo(oldPassword);
-        Sysuser sysuser = new Sysuser();
-        sysuser.setSuPassword(newPassword);
-        return sysuserDao.updateByExampleSelective(sysuser,example);
+        List<Sysuser> list = sysuserDao.selectByExample(example);
+        if (list != null && list.size() == 1) {
+            Sysuser sysuser = list.get(0);
+            sysuser.setSuPassword(newPassword);
+            return sysuserDao.updateByExampleSelective(sysuser, example);
+        } else {
+            return 0;
+        }
     }
 
     /**
      * 修改昵称
+     *
      * @param username
      * @param password
      * @param nickname
      * @return
      */
-    public Integer editSUNickname(String username,String password,String nickname){
+    public Integer editSUNickname(String username, String password, String nickname) {
         SysuserExample example = new SysuserExample();
         SysuserExample.Criteria criteria = example.createCriteria();
         criteria.andSuUsernameEqualTo(username);
         criteria.andSuPasswordEqualTo(password);
         Sysuser sysuser = new Sysuser();
         sysuser.setSuNickname(nickname);
-        return sysuserDao.updateByExampleSelective(sysuser,example);
+        return sysuserDao.updateByExampleSelective(sysuser, example);
     }
 
     /**
      * 用户登录
+     *
      * @param username
      * @param password
      * @return
      */
-    public Sysuser userLogin(String username,String password){
+    public Sysuser doSULogin(String username, String password) {
         SysuserExample example = new SysuserExample();
         SysuserExample.Criteria criteria = example.createCriteria();
         criteria.andSuUsernameEqualTo(username);
         criteria.andSuPasswordEqualTo(password);
-        List<Sysuser> list = sysuserDao.selectByExample(example);
-        return list.size()==1?list.get(0):null;
+        List<Sysuser> list = sysuserDao.loginByExample(example);
+        return list.size() == 1 ? list.get(0) : null;
+    }
+
+    /**
+     * 按昵称搜索用户
+     *
+     * @param nickname
+     * @return
+     */
+    public List<Sysuser> searchSU(String nickname) {
+        SysuserExample example = new SysuserExample();
+        SysuserExample.Criteria criteria = example.createCriteria();
+        criteria.andSuNicknameLike("%" + nickname + "%");
+        return sysuserDao.selectByExample(example);
     }
 
 }

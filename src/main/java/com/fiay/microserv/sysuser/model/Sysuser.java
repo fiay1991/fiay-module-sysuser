@@ -1,10 +1,13 @@
 package com.fiay.microserv.sysuser.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 系统用户模型
+ *
  * @author Fiay
  */
 public class Sysuser implements Serializable {
@@ -18,11 +21,13 @@ public class Sysuser implements Serializable {
     /**
      * 密码密文
      */
+    @JsonIgnore
     private String suPassword;
 
     /**
      * 盐
      */
+    @JsonIgnore
     private String suPasswordSalt;
 
     /**
@@ -137,14 +142,14 @@ public class Sysuser implements Serializable {
         }
         Sysuser other = (Sysuser) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getSuUsername() == null ? other.getSuUsername() == null : this.getSuUsername().equals(other.getSuUsername()))
-            && (this.getSuPassword() == null ? other.getSuPassword() == null : this.getSuPassword().equals(other.getSuPassword()))
-            && (this.getSuPasswordSalt() == null ? other.getSuPasswordSalt() == null : this.getSuPasswordSalt().equals(other.getSuPasswordSalt()))
-            && (this.getSuNickname() == null ? other.getSuNickname() == null : this.getSuNickname().equals(other.getSuNickname()))
-            && (this.getSuFrom() == null ? other.getSuFrom() == null : this.getSuFrom().equals(other.getSuFrom()))
-            && (this.getSuLastLoginIp() == null ? other.getSuLastLoginIp() == null : this.getSuLastLoginIp().equals(other.getSuLastLoginIp()))
-            && (this.getSuLastLoginTime() == null ? other.getSuLastLoginTime() == null : this.getSuLastLoginTime().equals(other.getSuLastLoginTime()))
-            && (this.getSuStatus() == null ? other.getSuStatus() == null : this.getSuStatus().equals(other.getSuStatus()));
+                && (this.getSuUsername() == null ? other.getSuUsername() == null : this.getSuUsername().equals(other.getSuUsername()))
+                && (this.getSuPassword() == null ? other.getSuPassword() == null : this.getSuPassword().equals(other.getSuPassword()))
+                && (this.getSuPasswordSalt() == null ? other.getSuPasswordSalt() == null : this.getSuPasswordSalt().equals(other.getSuPasswordSalt()))
+                && (this.getSuNickname() == null ? other.getSuNickname() == null : this.getSuNickname().equals(other.getSuNickname()))
+                && (this.getSuFrom() == null ? other.getSuFrom() == null : this.getSuFrom().equals(other.getSuFrom()))
+                && (this.getSuLastLoginIp() == null ? other.getSuLastLoginIp() == null : this.getSuLastLoginIp().equals(other.getSuLastLoginIp()))
+                && (this.getSuLastLoginTime() == null ? other.getSuLastLoginTime() == null : this.getSuLastLoginTime().equals(other.getSuLastLoginTime()))
+                && (this.getSuStatus() == null ? other.getSuStatus() == null : this.getSuStatus().equals(other.getSuStatus()));
     }
 
     @Override

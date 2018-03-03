@@ -1,7 +1,7 @@
 package com.fiay.microserv.sysuser.util.druid;
 
 import com.alibaba.druid.support.http.StatViewServlet;
-import com.fiay.microserv.sysuser.util.api.ApiRoute;
+import com.fiay.microserv.sysuser.api.ApiRoute;
 
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
